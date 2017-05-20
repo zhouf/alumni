@@ -1,0 +1,36 @@
+body {
+	margin: 5px;
+}
+
+ul{
+	margin-left: 0pt;
+    display:inline;
+}
+
+
+li{
+	list-style-position: outside;
+	padding: 10px;
+	list-style: none;
+	border-bottom: solid #DBE6E3 2px;
+	margin: 0pt 12pt;
+	font-size: 11pt;
+}
+
+a{
+	text-decoration: none;
+	color: #183D69;
+}
+
+.search{
+	margin: 5pt 12pt;
+}
+
+.search .txt{
+	width: 150px;
+}
+.search .btn{
+	margin: 5px;
+	float: right;
+}
+
