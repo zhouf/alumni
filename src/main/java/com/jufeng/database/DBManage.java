@@ -5,13 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+import javax.sql.rowset.RowSetProvider;
 import javax.sql.rowset.WebRowSet;
 
 import org.apache.log4j.Logger;
 
 import com.jufeng.util.filter.StringFilter;
-import com.sun.rowset.WebRowSetImpl;
 
 public class DBManage {
 	static Logger log = Logger.getLogger(DBManage.class.getName());
@@ -30,8 +29,12 @@ public class DBManage {
 			DBConfig dbconf = new DBConfig();
 			
 			//根据连接配置获取数据库连接
-			Class.forName(dbconf.getDriver()).newInstance();
-			conn= DriverManager.getConnection(dbconf.getUrl(),dbconf.getUserName(),dbconf.getPassword());
+			Class.forName(dbconf.getDriver());
+//			conn= DriverManager.getConnection(dbconf.getUrl(),dbconf.getUserName(),dbconf.getPassword());
+			String path = DBManage.class.getResource("").toString();
+			String dbpath = path.substring(0,path.indexOf("classes")) + "db/alumni";
+
+			conn = DriverManager.getConnection("jdbc:hsqldb:"+dbpath,"SA","");
 			
 		} catch (Exception ex) {
 			log.error("出现例外，信息是:" + ex.getMessage());
@@ -93,7 +96,7 @@ public class DBManage {
 		WebRowSet wrs = null;
 		try {
 			ResultSet rs = conn.createStatement().executeQuery(StringFilter.cover2DB(sql));
-			wrs = new WebRowSetImpl();
+			wrs = RowSetProvider.newFactory().createWebRowSet();
 			wrs.populate(rs);
 			rs.close();
 		} catch (SQLException e) {

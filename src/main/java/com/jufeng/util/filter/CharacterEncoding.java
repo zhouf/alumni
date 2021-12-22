@@ -8,6 +8,10 @@ import java.io.*;
 
 @WebFilter("/*")
 public class CharacterEncoding extends HttpServlet implements Filter {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private FilterConfig filterConfig;
 
 	
